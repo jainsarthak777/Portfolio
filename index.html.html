@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarthak Jain — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --r:#0ea5e9;--r2:#38bdf8;--r3:#7dd3fc;
+  --bg:#080807;--bg2:#0f0e0c;--bg3:#161410;--card:#111009;
+  --border:rgba(255,255,255,.06);--border2:rgba(14,165,233,.25);
+  --text:#e8e5de;--muted:#6b6860;--muted2:#9a9790;
+  --syne:'Syne',sans-serif;--inter:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+body{font-family:var(--inter);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--r);border-radius:4px}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;transition:background .3s,border .3s}
+#nav.scrolled{background:rgba(8,8,7,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--syne);font-size:1.15rem;font-weight:700;color:#fff;text-decoration:none}
+.nav-logo span{color:var(--r2)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--r2);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{padding:8px 20px!important;background:var(--r)!important;color:#fff!important;border-radius:6px;transition:background .2s,transform .2s!important}
+.nav-cta:hover{background:var(--r2)!important;transform:translateY(-1px)!important}
+.nav-cta::after{display:none!important}
+#hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--muted);padding:4px}
+#mob-nav{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(8,8,7,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:199;padding:1.5rem 2rem;flex-direction:column;gap:.75rem}
+#mob-nav a{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:.5rem 0;border-bottom:1px solid var(--border);display:block}
+#mob-nav a:last-child{border-bottom:none;color:var(--r2)}
+
+/* HERO */
+#home{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;background:var(--bg)}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(14,165,233,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.05) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.orb1{position:absolute;right:-5%;top:-10%;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.11) 0%,transparent 65%)}
+.orb2{position:absolute;left:-10%;bottom:-20%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.07) 0%,transparent 65%)}
+.hero-inner{max-width:1200px;margin:0 auto;padding:0 2rem;width:100%;display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--r2);background:rgba(14,165,233,.08);border:1px solid rgba(14,165,233,.2);padding:6px 16px;border-radius:999px;margin-bottom:2rem}
+.blink{width:6px;height:6px;border-radius:50%;background:var(--r2);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+h1.hn{font-family:var(--syne);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:1.5rem}
+h1.hn .red{color:var(--r2)}
+.hero-p{color:rgba(255,255,255,.48);font-size:1rem;font-weight:300;line-height:1.85;max-width:460px;margin-bottom:2.5rem}
+.hero-btns{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:3rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:8px;font-family:var(--inter);font-size:.88rem;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer;border:none;white-space:nowrap}
+.btn:active{transform:scale(.97)!important}
+.btn-p{background:var(--r);color:#fff;box-shadow:0 4px 24px rgba(14,165,233,.3)}
+.btn-p:hover{background:var(--r2);box-shadow:0 8px 32px rgba(14,165,233,.4);transform:translateY(-2px)}
+.btn-g{background:rgba(255,255,255,.05);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.12)}
+.btn-g:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+.btn-sm{padding:8px 18px;font-size:.8rem}
+.hero-stats{display:flex;gap:2.5rem}
+.hs{text-align:left}
+.hs-n{font-family:var(--syne);font-size:2rem;font-weight:700;color:#fff;line-height:1}
+.hs-l{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+/* Hero card */
+.hero-card{background:rgba(17,16,9,.85);border:1px solid rgba(255,255,255,.07);border-radius:24px;padding:2.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,165,233,.07) 0%,transparent 60%);pointer-events:none}
+.av-ring{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--r),var(--r2));padding:2px;margin:0 auto 1.2rem}
+.av-in{width:100%;height:100%;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:var(--syne);font-size:1.9rem;font-weight:800;color:#fff}
+.hc-name{font-family:var(--syne);font-size:1.15rem;font-weight:700;color:#fff;text-align:center;margin-bottom:.3rem}
+.hc-role{font-family:var(--mono);font-size:.65rem;color:var(--r2);letter-spacing:.1em;text-align:center;margin-bottom:1.2rem}
+.hc-div{height:1px;background:var(--border);margin-bottom:1.2rem}
+.hc-row{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;font-size:.82rem;color:rgba(255,255,255,.55)}
+.hc-row svg{flex-shrink:0;color:var(--r2)}
+.sdot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;display:inline-block;margin-right:6px}
+
+/* SECTIONS */
+.sec{padding:7rem 2rem}
+.sec-in{max-width:1200px;margin:0 auto}
+.ey{font-family:var(--mono);font-size:.61rem;letter-spacing:.2em;text-transform:uppercase;color:var(--r2);display:flex;align-items:center;gap:12px;margin-bottom:.7rem}
+.ey::before{content:'';width:28px;height:1px;background:linear-gradient(90deg,var(--r),var(--r2))}
+.st{font-family:var(--syne);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.02em}
+.ss{color:var(--muted2);font-size:.95rem;font-weight:300;margin-top:.75rem;max-width:500px}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;transition:all .3s}
+.card:hover{border-color:rgba(14,165,233,.2);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(14,165,233,.07);transform:translateY(-4px)}
+.card-glow{box-shadow:0 0 0 1px rgba(14,165,233,.15),0 8px 40px rgba(0,0,0,.5)}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-g{display:grid;grid-template-columns:1fr 320px;gap:3rem;align-items:start;margin-top:3rem}
+.about-g p{color:rgba(255,255,255,.58);font-size:.97rem;font-weight:300;line-height:1.85;margin-bottom:1.1rem}
+.about-g p strong{color:#fff;font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.5rem}
+.tag{font-family:var(--mono);font-size:.65rem;padding:5px 11px;border-radius:6px;background:rgba(14,165,233,.08);color:var(--r2);border:1px solid rgba(14,165,233,.17)}
+.info-box{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+.ir{display:flex;gap:.75rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid var(--border)}
+.ir:last-child{border-bottom:none}
+.il{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:68px;flex-shrink:0;padding-top:2px}
+.iv{font-size:.84rem;color:rgba(255,255,255,.8)}
+
+/* SKILLS */
+#skills{background:var(--bg)}
+.skills-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.8rem}
+.sk-card{padding:1.8rem;border-radius:18px}
+.sk-title{font-family:var(--syne);font-size:.93rem;font-weight:600;color:#fff;margin-bottom:1.4rem;display:flex;align-items:center;gap:10px}
+.sk-ico{width:30px;height:30px;background:rgba(14,165,233,.12);border:1px solid rgba(14,165,233,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ski{margin-bottom:1.1rem}
+.sk-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.sk-name{font-size:.83rem;color:rgba(255,255,255,.78)}
+.sk-pct{font-family:var(--mono);font-size:.67rem;color:var(--muted)}
+.sk-track{background:rgba(255,255,255,.05);border-radius:999px;height:4px;overflow:hidden}
+.sk-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--r) 0%,var(--r3) 100%);width:0;transition:width 1.4s cubic-bezier(.25,.46,.45,.94)}
+.soft-i{display:flex;align-items:center;gap:11px;padding:.7rem 1rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;margin-bottom:.55rem;transition:all .2s;cursor:default}
+.soft-i:hover{background:rgba(14,165,233,.05);border-color:rgba(14,165,233,.2)}
+.soft-em{width:27px;height:27px;background:rgba(14,165,233,.1);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.82rem}
+
+/* PROJECTS */
+#projects{background:var(--bg2)}
+.sec-lbl{font-family:var(--mono);font-size:.61rem;letter-spacing:.16em;text-transform:uppercase;color:var(--r2);margin-bottom:.9rem;margin-top:2.5rem}
+.proj-g{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:.5rem}
+.pcard{border-radius:20px;padding:2rem;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(14,165,233,.5),transparent)}
+.pnum{font-family:var(--syne);font-size:4rem;font-weight:800;color:rgba(255,255,255,.04);position:absolute;top:.8rem;right:1.4rem;line-height:1;pointer-events:none}
+.pbadges{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem}
+.pb{font-family:var(--mono);font-size:.61rem;padding:3px 10px;border-radius:5px;background:rgba(14,165,233,.1);color:var(--r2);border:1px solid rgba(14,165,233,.18)}
+.pb-g{background:rgba(255,255,255,.04);color:var(--muted);border-color:var(--border)}
+.ptitle{font-family:var(--syne);font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.7rem;line-height:1.2}
+.pdesc{font-size:.85rem;color:rgba(255,255,255,.48);line-height:1.75;flex:1;margin-bottom:1.4rem}
+.pfooter{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;margin-top:auto}
+.ptech{font-family:var(--mono);font-size:.63rem;color:var(--muted);padding:4px 10px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px}
+.gh-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-size:.79rem;font-family:var(--inter);font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer}
+.gh-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);color:#fff;transform:translateY(-1px)}
+.gh-red{background:rgba(14,165,233,.12);border-color:rgba(14,165,233,.25);color:var(--r2)}
+.gh-red:hover{background:rgba(14,165,233,.22);color:#fff}
+/* Timeline cards */
+.tl-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:1rem}
+.tlc{padding:1.5rem;border-radius:16px}
+.tl-type{font-family:var(--mono);font-size:.59rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.45rem}
+.tl-date{font-family:var(--mono);font-size:.63rem;color:var(--muted);margin-bottom:.75rem}
+.tl-title{font-family:var(--syne);font-size:.97rem;font-weight:600;color:#fff;margin-bottom:.55rem;line-height:1.3}
+.tl-desc{font-size:.8rem;color:rgba(255,255,255,.43);line-height:1.7}
+
+/* PAGES */
+#pages{background:var(--bg)}
+.pages-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.pl{display:block;text-decoration:none;padding:2rem;border-radius:18px;position:relative;overflow:hidden;transition:all .3s}
+.pl::after{content:'↗';position:absolute;top:1.1rem;right:1.4rem;font-size:1.1rem;color:var(--r2);opacity:0;transform:translateY(5px);transition:all .3s}
+.pl:hover::after{opacity:1;transform:translateY(0)}
+.pl:hover{transform:translateY(-5px);border-color:rgba(14,165,233,.3)!important;box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 28px rgba(14,165,233,.08)}
+.pl-ico{width:50px;height:50px;border-radius:13px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.2);display:flex;align-items:center;justify-content:center;margin-bottom:1.1rem}
+.pl-t{font-family:var(--syne);font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.35rem}
+.pl-u{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-bottom:.7rem}
+.pl-d{font-size:.82rem;color:rgba(255,255,255,.43);line-height:1.6}
+
+/* AI */
+#ai{background:var(--bg2)}
+.ai-wrap{max-width:760px;margin:0 auto}
+.ai-box{border-radius:20px;overflow:hidden;border:1px solid var(--border2);box-shadow:0 0 0 1px rgba(14,165,233,.08),0 24px 60px rgba(0,0,0,.6)}
+.ai-hd{padding:1rem 1.5rem;background:linear-gradient(135deg,var(--r) 0%,var(--r2) 100%);display:flex;align-items:center;justify-content:space-between}
+.ai-hd-l{display:flex;align-items:center;gap:10px}
+.ai-dots{display:flex;gap:5px}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35)}
+.ai-hd-t{font-family:var(--syne);font-size:.9rem;font-weight:600;color:#fff}
+.ai-badge{font-family:var(--mono);font-size:.59rem;letter-spacing:.1em;background:rgba(255,255,255,.2);color:#fff;padding:3px 10px;border-radius:999px}
+.ai-msgs{height:360px;overflow-y:auto;padding:1.4rem;background:var(--bg);display:flex;flex-direction:column;gap:.85rem}
+.ai-msgs::-webkit-scrollbar{width:3px}
+.ai-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.ai-msg{max-width:86%;font-size:.85rem;line-height:1.6;padding:.75rem 1.1rem;border-radius:16px;word-break:break-word;animation:msgIn .2s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.msg-bot{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px;align-self:flex-start;color:var(--text)}
+.msg-user{background:linear-gradient(135deg,var(--r) 0%,var(--r2) 100%);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+.chip{font-size:.71rem;padding:4px 11px;border-radius:999px;background:rgba(14,165,233,.1);color:var(--r2);border:1px solid rgba(14,165,233,.2);cursor:pointer;transition:all .2s;font-family:var(--mono)}
+.chip:hover{background:var(--r);color:#fff;border-color:var(--r)}
+.ai-typing{display:flex;gap:5px;align-items:center;padding:.75rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;align-self:flex-start;width:60px}
+.ai-typing span{width:7px;height:7px;border-radius:50%;background:var(--r2);animation:tdot 1.2s infinite}
+.ai-typing span:nth-child(2){animation-delay:.2s}
+.ai-typing span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+.ai-ft{padding:1rem 1.4rem;border-top:1px solid var(--border);display:flex;gap:.7rem;background:var(--bg3)}
+.ai-in{flex:1;padding:.75rem 1.1rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.87rem;font-family:var(--inter);outline:none;transition:border-color .2s}
+.ai-in:focus{border-color:var(--r)}
+.ai-in::placeholder{color:var(--muted)}
+.ai-sb{padding:.75rem 1.4rem;background:var(--r);color:#fff;border:none;border-radius:10px;font-size:.87rem;font-family:var(--inter);font-weight:500;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;gap:6px}
+.ai-sb:hover{background:var(--r2)}
+.ai-sb:active{transform:scale(.97)}
+
+/* CONTACT */
+#contact{background:var(--bg)}
+.contact-g{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.cc{padding:2rem;border-radius:20px}
+.clbl{font-family:var(--mono);font-size:.59rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem}
+.ci{display:flex;align-items:center;gap:13px;padding:.85rem 1rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);margin-bottom:.7rem;transition:all .2s}
+.ci:hover{background:rgba(14,165,233,.05);border-color:rgba(14,165,233,.25);transform:translateX(4px)}
+.ci-ico{width:36px;height:36px;background:rgba(14,165,233,.1);border:1px solid rgba(14,165,233,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-l{font-family:var(--mono);font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.ci-v{font-size:.84rem;color:rgba(255,255,255,.82)}
+
+/* FLOAT CHAT */
+
+footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text-align:center}
+#fclock{font-family:var(--mono);font-size:.67rem;color:var(--muted);letter-spacing:.06em}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .about-g{grid-template-columns:1fr}
+  .skills-g{grid-template-columns:1fr 1fr}
+  .proj-g{grid-template-columns:1fr}
+  .tl-g{grid-template-columns:1fr}
+  .pages-g{grid-template-columns:1fr}
+  .contact-g{grid-template-columns:1fr}
+  #hamburger{display:block}
+  .nav-links{display:none}
+}
+@media(max-width:580px){
+  .skills-g{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">Sarthak<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#pages">Pages</a>
+      <a href="#ai">AI Chat</a>
+      <a href="#contact">Contact</a>
+      <a href="https://jainsarthak777.github.io/resume/" class="nav-cta">Resume ↗</a>
+    </div>
+    <button id="hamburger" onclick="toggleMob()">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+<div id="mob-nav">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#skills" onclick="closeMob()">Skills</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#pages" onclick="closeMob()">Pages</a>
+  <a href="#ai" onclick="closeMob()">AI Chat</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+  <a href="https://jainsarthak777.github.io/resume/" onclick="closeMob()">Resume ↗</a>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid-bg"></div><div class="orb1"></div><div class="orb2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><div class="blink"></div>Open to Internships · Graduating 2026</div>
+      <h1 class="hn">Hi, I'm<br><span class="red">Sarthak</span><br>Jain</h1>
+      <p class="hero-p">An aspiring AI/ML developer and Python enthusiast — building intelligent tools from NLP resume analysers to voice-controlled desktop assistants.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-p">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Get In Touch
+        </a>
+        <a href="https://jainsarthak777.github.io/resume/" class="btn btn-g">View Resume ↗</a>
+        <a href="https://jainsarthak777.github.io/cv/" class="btn btn-g">Interactive CV ↗</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-n">2</div><div class="hs-l">Projects</div></div>
+        <div class="hs"><div class="hs-n">3+</div><div class="hs-l">Certs</div></div>
+        <div class="hs"><div class="hs-n">AWS</div><div class="hs-l">Certified</div></div>
+        <div class="hs"><div class="hs-n">'26</div><div class="hs-l">Grad</div></div>
+      </div>
+    </div>
+    <div class="hero-card card-glow">
+      <div class="av-ring"><div class="av-in">SJ</div></div>
+      <div class="hc-name">Sarthak Jain</div>
+      <div class="hc-role">B.Tech CSE-AIML · AKTU</div>
+      <div class="hc-div"></div>
+      <div class="hc-row"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Uttar Pradesh, India</div>
+      <div class="hc-row"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b313a32353575283a292f333a306c6c6c1b3c363a323775383436">[email&#160;protected]</a></div>
+      <div class="hc-row"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.72 6.72l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+91 99364 65088</div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);text-align:center;font-size:.82rem;color:rgba(255,255,255,.45)"><span class="sdot"></span>Available for work</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="sec-in">
+    <div class="ey">Who I Am</div>
+    <h2 class="st">About Me</h2>
+    <div class="about-g">
+      <div>
+        <p>I'm a <strong>B.Tech CSE (AI/ML)</strong> student at Dr. A.P.J Abdul Kalam Technical University, graduating in 2026. I focus on building practical AI/ML solutions — turning complex ideas into working software that solves real problems.</p>
+        <p>I've built an <strong>NLP-based AI Resume Analyser</strong> and a <strong>Python Voice Assistant</strong>, earned my AWS Cloud Foundations certificate, and participated in T-Hacks 7.0 where my team built N.O.V.A in 24 hours.</p>
+        <p>I'm actively seeking <strong style="color:var(--r2)">software development internship opportunities</strong> where I can apply Python, AI/ML, and data skills to meaningful projects.</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">AI / ML</span><span class="tag">NLP</span>
+          <span class="tag">AWS Cloud</span><span class="tag">NumPy · Pandas</span><span class="tag">SQL</span>
+          <span class="tag">Power BI</span><span class="tag">Selenium</span><span class="tag">Voice AI</span>
+        </div>
+        <div style="display:flex;gap:.7rem;margin-top:2rem;flex-wrap:wrap">
+          <a href="/cdn-cgi/l/email-protection#284249414646065b495a5c4049431f1f1f684f45494144064b4745" class="btn btn-p btn-sm">Email Me</a>
+          <a href="https://github.com/jainsarthak777" class="btn btn-g btn-sm">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/sarthakjain077/" class="btn btn-g btn-sm">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="info-box">
+          <div style="font-family:var(--mono);font-size:.59rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem">Quick Info</div>
+          <div class="ir"><div class="il">Degree</div><div class="iv">B.Tech CSE-AIML</div></div>
+          <div class="ir"><div class="il">Uni</div><div class="iv">AKTU, UP</div></div>
+          <div class="ir"><div class="il">Year</div><div class="iv">2022 – 2026</div></div>
+          <div class="ir"><div class="il">Focus</div><div class="iv">AI/ML & Python</div></div>
+          <div class="ir"><div class="il">Location</div><div class="iv">Uttar Pradesh, IN</div></div>
+          <div class="ir"><div class="il">Status</div><div class="iv" style="color:#4ade80"><span class="sdot"></span>Open to Work</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sec" style="background:var(--bg2)">
+  <div class="sec-in">
+    <div class="ey">Capabilities</div>
+    <h2 class="st">Technical Toolbox</h2>
+    <p class="ss">Languages, libraries, and tools I use to build intelligent software.</p>
+    <div class="skills-g">
+      <div class="card sk-card">
+        <div class="sk-title"><div class="sk-ico"><svg width="14" height="14" fill="none" stroke="#0ea5e9" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>Languages</div>
+        <div id="b-lang"></div>
+      </div>
+      <div class="card sk-card">
+        <div class="sk-title"><div class="sk-ico"><svg width="14" height="14" fill="none" stroke="#0ea5e9" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>Libraries</div>
+        <div id="b-lib"></div>
+      </div>
+      <div class="card sk-card">
+        <div class="sk-title"><div class="sk-ico"><svg width="14" height="14" fill="none" stroke="#0ea5e9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>Tools & Soft Skills</div>
+        <div id="b-tools" style="margin-bottom:1.3rem"></div>
+        <div id="soft-l"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec">
+  <div class="sec-in">
+    <div class="ey">Work</div>
+    <h2 class="st">Projects & Experience</h2>
+    <div class="sec-lbl" style="margin-top:2.5rem">Major Projects</div>
+    <div class="proj-g">
+      <div class="card pcard card-glow">
+        <div class="pnum">01</div>
+        <div class="pbadges"><span class="pb">AI / NLP</span><span class="pb">Machine Learning</span><span class="pb">Python</span></div>
+        <div class="ptitle">AI Resume Analyser &amp; Job Recommender</div>
+        <p class="pdesc">An intelligent tool that uses NLP to extract skills, experience, and education from resumes. ML models recommend the most suitable job roles. Keyword similarity matching scores resume relevance. Classifies candidates into Data Science, Web Dev, or Software Engineering tracks.</p>
+        <div class="pfooter">
+          <span class="ptech">Python</span><span class="ptech">NLP</span><span class="ptech">scikit-learn</span>
+          <a href="https://github.com/jainsarthak777" class="gh-btn gh-red" style="margin-left:auto">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub
+          </a>
+        </div>
+      </div>
+      <div class="card pcard card-glow">
+        <div class="pnum">02</div>
+        <div class="pbadges"><span class="pb">Voice AI</span><span class="pb">Desktop App</span><span class="pb">Python</span></div>
+        <div class="ptitle">Desktop Voice Assistant</div>
+        <p class="pdesc">A Python voice-controlled desktop assistant using pyttsx3 for speech synthesis and SpeechRecognition for real-time voice-to-text. Opens apps, searches Google/YouTube, sends emails, reports time/date. Features continuous command parsing for seamless hands-free use.</p>
+        <div class="pfooter">
+          <span class="ptech">Python</span><span class="ptech">pyttsx3</span><span class="ptech">SpeechRecognition</span>
+          <a href="https://github.com/jainsarthak777" class="gh-btn gh-red" style="margin-left:auto">
+            <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sec-lbl">Hackathons &amp; Certificates</div>
+    <div class="tl-g" id="tl"></div>
+  </div>
+</section>
+
+<!-- PAGES -->
+<section id="pages" class="sec" style="background:var(--bg2)">
+  <div class="sec-in">
+    <div class="ey">Navigate</div>
+    <h2 class="st">My Pages</h2>
+    <p class="ss">All my professional pages — click to visit.</p>
+    <div class="pages-g">
+      <a href="https://jainsarthak777.github.io/resume/" class="pl card">
+        <div class="pl-ico"><svg width="22" height="22" fill="none" stroke="#0ea5e9" stroke-width="1.8" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+        <div class="pl-t">Resume</div>
+        <div class="pl-u">jainsarthak777.github.io/resume</div>
+        <div class="pl-d">Full professional resume with education, skills, and project details.</div>
+      </a>
+      <a href="https://jainsarthak777.github.io/contact/" class="pl card">
+        <div class="pl-ico"><svg width="22" height="22" fill="none" stroke="#0ea5e9" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="pl-t">Contact Page</div>
+        <div class="pl-u">jainsarthak777.github.io/contact</div>
+        <div class="pl-d">Dedicated contact form with all social profiles and direct links.</div>
+      </a>
+      <a href="https://jainsarthak777.github.io/cv/" class="pl card">
+        <div class="pl-ico"><svg width="22" height="22" fill="none" stroke="#0ea5e9" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+        <div class="pl-t">Interactive CV</div>
+        <div class="pl-u">jainsarthak777.github.io/cv</div>
+        <div class="pl-d">Interactive CV with skill charts, project timeline, and built-in AI assistant.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- AI -->
+<section id="ai" class="sec">
+  <div class="sec-in">
+    <div class="ey">AI Powered</div>
+    <h2 class="st">✨ AI Interview Assistant</h2>
+    <p class="ss" style="margin-bottom:2.5rem">Ask me anything about Sarthak — skills, projects, experience, or how to reach him.</p>
+    <div class="ai-wrap">
+      <div class="ai-box">
+        <div class="ai-hd">
+          <div class="ai-hd-l">
+            <div class="ai-dots"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>
+            <div class="ai-hd-t">Sarthak's AI Assistant</div>
+          </div>
+          <div class="ai-badge">Powered by Claude</div>
+        </div>
+        <div class="ai-msgs" id="ai-body"></div>
+        <div class="ai-ft">
+          <input class="ai-in" id="ai-in" type="text" placeholder="Ask about skills, projects, contact…">
+          <button class="ai-sb" id="ai-btn">Send <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec" style="background:var(--bg2)">
+  <div class="sec-in">
+    <div class="ey">Reach Out</div>
+    <h2 class="st">Get In Touch</h2>
+    <p class="ss">Actively seeking internship opportunities. Let's connect!</p>
+    <div class="contact-g">
+      <div>
+        <div class="clbl">Direct Contact</div>
+        <a href="/cdn-cgi/l/email-protection#dbb1bab2b5b5f5a8baa9afb3bab0ececec9bbcb6bab2b7f5b8b4b6" class="ci">
+          <div class="ci-ico"><svg width="15" height="15" fill="none" stroke="#0ea5e9" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div>
+          <div><div class="ci-l">Gmail</div><div class="ci-v"><span class="__cf_email__" data-cfemail="701a11191e1e5e0311020418111b47474730171d11191c5e131f1d">[email&#160;protected]</span></div></div>
+        </a>
+        <a href="tel:+919936465088" class="ci">
+          <div class="ci-ico"><svg width="15" height="15" fill="none" stroke="#0ea5e9" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.72 6.72l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="ci-l">Mobile</div><div class="ci-v">+91 99364 65088</div></div>
+        </a>
+        <div style="display:flex;gap:.7rem;margin-top:1.5rem;flex-wrap:wrap">
+          <a href="/cdn-cgi/l/email-protection#e58f848c8b8bcb968497918d848ed2d2d2a58288848c89cb868a88" class="btn btn-p">Email Me</a>
+          <a href="https://jainsarthak777.github.io/contact/" class="btn btn-g">Contact Page ↗</a>
+        </div>
+      </div>
+      <div>
+        <div class="clbl">Social Profiles</div>
+        <a href="https://www.linkedin.com/in/sarthakjain077/" class="ci">
+          <div class="ci-ico"><svg width="15" height="15" fill="#0ea5e9" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div><div class="ci-l">LinkedIn</div><div class="ci-v">sarthakjain077</div></div>
+        </a>
+        <a href="https://github.com/jainsarthak777" class="ci">
+          <div class="ci-ico"><svg width="15" height="15" fill="#0ea5e9" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
+          <div><div class="ci-l">GitHub</div><div class="ci-v">jainsarthak777</div></div>
+        </a>
+        <a href="https://www.instagram.com/sarthak_jain077?igsh=MW13Y3Bpcjh4MmVqaQ==" class="ci">
+          <div class="ci-ico"><svg width="15" height="15" fill="none" stroke="#0ea5e9" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#0ea5e9" stroke="none"/></svg></div>
+          <div><div class="ci-l">Instagram</div><div class="ci-v">sarthak_jain077</div></div>
+        </a>
+        <a href="https://t.me/Sarthak_077" class="ci">
+          <div class="ci-ico"><svg width="15" height="15" fill="#0ea5e9" viewBox="0 0 24 24"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.5 6.498c-1.073.422-1.068 1.457-.186 1.732l4.29 1.338 1.665 5.138c.201.62.955.856 1.448.44l2.395-2.025 4.703 3.47c.869.634 2.115.195 2.376-.857l3.09-12.93c.32-1.337-.493-2.019-1.259-2.019z"/></svg></div>
+          <div><div class="ci-l">Telegram</div><div class="ci-v">Sarthak_077</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div id="fclock"></div></footer>
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ─── CV KNOWLEDGE BASE ───────────────────────────────────
+const CV = {
+  summary:"Sarthak Jain is a B.Tech CSE-AIML student at AKTU (2022–2026) from Uttar Pradesh, India. He is passionate about AI/ML and Python development, having built an AI Resume Analyser and a Desktop Voice Assistant. He has earned AWS Cloud Foundations and Python DSA certifications and participated in T-Hacks 7.0 hackathon.",
+  skills:"Languages: Python, C, SQL.\nLibraries: NumPy, Pandas, Matplotlib, Selenium, pyttsx3, SpeechRecognition.\nTools: VS Code, Google Colab, Google Cloud Platform, Power BI, Google Sheets.\nProfessional Skills: Problem Solving, Team Collaboration, Communication, Self-Learning, Time Management.",
+  projects:"1. AI Resume Analyser & Job Recommender (June 2024) — NLP-based resume analysis, ML job role recommendations, keyword similarity matching. Classifies into Data Science, Web Dev, or Software Engineering.\n\n2. Desktop Voice Assistant (Jan 2025) — Python voice assistant using pyttsx3 and SpeechRecognition. Opens apps, searches web, sends emails, reports time/date with continuous listening.",
+  certs:"1. Amazon AWS Cloud Foundations (Dec 2023) — AWS services, cloud infrastructure, hands-on with Console & CLI.\n2. Python Data Structures & Algorithms (Dec 2024) — Core DSA and problem-solving techniques.\n3. T-Hacks 7.0 Hackathon (Oct 2024) — Built N.O.V.A AI voice assistant in 24 hours with a 3-member team.",
+  contact:"Email: jainn.sarthak777@gmail.com | Phone: +91 99364 65088 | LinkedIn: linkedin.com/in/sarthakjain077 | GitHub: github.com/jainsarthak777 | Instagram: @sarthak_jain077 | Telegram: t.me/Sarthak_077",
+  pages:"Resume: https://jainsarthak777.github.io/resume/ | Contact: https://jainsarthak777.github.io/contact/ | CV: https://jainsarthak777.github.io/cv/",
+  education:"B.Tech CSE-AIML from Dr. A.P.J Abdul Kalam Technical University (Sep 2022 – Jul 2026). Courses: Data Structures, Algorithms, Database Management, AI, Systems Programming, Computer Architecture.",
+  internship:"Sarthak is actively seeking software development or AI/ML internship opportunities. Best way to reach him: jainn.sarthak777@gmail.com or LinkedIn: linkedin.com/in/sarthakjain077"
+};
+
+const SYS = `You are a professional AI assistant on Sarthak Jain's portfolio website. Answer questions accurately using ONLY the information below. Be friendly, concise (2-4 sentences), and helpful.
+
+Sarthak's Info:
+- Summary: ${CV.summary}
+- Skills: ${CV.skills}
+- Projects: ${CV.projects}
+- Certificates: ${CV.certs}
+- Education: ${CV.education}
+- Contact: ${CV.contact}
+- Pages: ${CV.pages}
+- Availability: ${CV.internship}
+
+Rules: Only use info above. For unknowns say "I don't have that info, but contact Sarthak at jainn.sarthak777@gmail.com". Never make up data.`;
+
+// ─── NAV ─────────────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>30);
+  let c='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(scrollY>=s.offsetTop-100)c=s.id;});
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c));
+});
+function toggleMob(){const m=document.getElementById('mob-nav');m.style.display=m.style.display==='flex'?'none':'flex';}
+function closeMob(){document.getElementById('mob-nav').style.display='none';}
+
+// Smooth scroll ALL anchor links
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[href^="#"]');
+  if(a){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});closeMob();}
+});
+
+// ─── SKILL BARS ──────────────────────────────────────────
+const SD={
+  lang:[{n:'Python',p:88},{n:'C',p:72},{n:'SQL',p:70}],
+  lib:[{n:'NumPy / Pandas',p:80},{n:'SpeechRecognition',p:86},{n:'pyttsx3',p:84},{n:'Matplotlib',p:72},{n:'Selenium',p:65}],
+  tools:[{n:'VS Code / Colab',p:90},{n:'Google Cloud (GCP)',p:62},{n:'Power BI',p:68}]
+};
+const SOFT=[{e:'🧠',n:'Problem Solving'},{e:'📚',n:'Self-Learning'},{e:'🤝',n:'Team Collaboration'},{e:'🗣️',n:'Communication'},{e:'⏱️',n:'Time Management'}];
+
+function buildBars(id,arr){
+  const el=document.getElementById(id);
+  arr.forEach(s=>{el.innerHTML+=`<div class="ski"><div class="sk-row"><span class="sk-name">${s.n}</span><span class="sk-pct">${s.p}%</span></div><div class="sk-track"><div class="sk-fill" data-p="${s.p}"></div></div></div>`;});
+}
+buildBars('b-lang',SD.lang); buildBars('b-lib',SD.lib); buildBars('b-tools',SD.tools);
+const sl=document.getElementById('soft-l');
+SOFT.forEach(s=>sl.innerHTML+=`<div class="soft-i"><div class="soft-em">${s.e}</div><span style="font-size:.83rem;color:rgba(255,255,255,.75)">${s.n}</span></div>`);
+new IntersectionObserver(e=>{if(e[0].isIntersecting)document.querySelectorAll('.sk-fill').forEach(b=>b.style.width=b.dataset.p+'%');},{threshold:.2}).observe(document.getElementById('skills'));
+
+// ─── TIMELINE ────────────────────────────────────────────
+const TL=[
+  {date:'Oct 2024',type:'Hackathon',tc:'#f59e0b',title:'T-Hacks 7.0 — N.O.V.A',desc:'Built an AI voice assistant in 24 hrs with a 3-member team using Python, SpeechRecognition, and pyttsx3. Automated app control, web search, and time/date reporting.'},
+  {date:'Dec 2024',type:'Certificate',tc:'#22c55e',title:'Python DSA Certification',desc:'Completed focused certification on Data Structures & Algorithms in Python, covering core data structures and algorithmic problem-solving for real-world coding challenges.'},
+  {date:'Dec 2023',type:'Certificate',tc:'#22c55e',title:'Amazon AWS Cloud Foundations',desc:'AWS Academy certified. Hands-on with AWS Console and CLI. Gained readiness for associate-level AWS certifications and cloud service selection for business use cases.'},
+];
+const tlEl=document.getElementById('tl');
+TL.forEach(t=>tlEl.innerHTML+=`<div class="card tlc"><div class="tl-type" style="color:${t.tc}">${t.type}</div><div class="tl-date">${t.date}</div><div class="tl-title">${t.title}</div><div class="tl-desc">${t.desc}</div></div>`);
+
+// ─── AI ASSISTANT ─────────────────────────────────────────
+const history=[];
+
+function makeMsg(html,cls){
+  const d=document.createElement('div');
+  d.className='ai-msg '+(cls==='user'?'msg-user':'msg-bot');
+  d.innerHTML=html;
+  const b=document.getElementById('ai-body');
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
+  return d;
+}
+function makeTyping(){
+  const d=document.createElement('div');
+  d.className='ai-typing';
+  d.innerHTML='<span></span><span></span><span></span>';
+  const b=document.getElementById('ai-body');
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
+  return d;
+}
+function instant(t){
+  const l=t.toLowerCase();
+  if(/(who is|about sarthak|introduce|summary)/i.test(l))return CV.summary;
+  if(/(skill|language|lib|tool|python|numpy|power.?bi|cloud|selenium)/i.test(l))return CV.skills.replace(/\n/g,'<br>');
+  if(/(project|built|resume analyser|voice assistant|nlp|app|work)/i.test(l))return CV.projects.replace(/\n/g,'<br>');
+  if(/(cert|aws|hackathon|nova|t-?hack|achiev)/i.test(l))return CV.certs.replace(/\n/g,'<br>');
+  if(/(contact|email|phone|reach|connect|number|social|telegram|instagram|linkedin|github)/i.test(l))return CV.contact.replace(/\|/g,'<br>');
+  if(/(page|resume|cv|link|portfolio|website)/i.test(l))return CV.pages.replace(/\|/g,'<br>');
+  if(/(educ|degree|college|university|aktu|course)/i.test(l))return CV.education;
+  if(/(intern|job|hire|opportunit|open to|available)/i.test(l))return CV.internship;
+  return null;
+}
+
+async function send(text){
+  if(!text.trim())return;
+  makeMsg(text,'user');
+  document.getElementById('ai-in').value='';
+
+  const fast=instant(text);
+  if(fast){setTimeout(()=>makeMsg(fast,'bot'),300);return;}
+
+
+  const typing=makeTyping();
+  history.push({role:'user',content:text});
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:400,
+        system:SYS,
+        messages:history.slice(-12)
+      })
+    });
+    const data=await res.json();
+    typing.remove();
+    const reply=data?.content?.[0]?.text||"I couldn't get a response. Try asking about Sarthak's skills, projects, or contact info!";
+    history.push({role:'assistant',content:reply});
+    makeMsg(reply.replace(/\n/g,'<br>'),'bot');
+  }catch(e){
+    typing.remove();
+    makeMsg("Connection issue. You can reach Sarthak directly at <a href='mailto:jainn.sarthak777@gmail.com' style='color:var(--r2)'>jainn.sarthak777@gmail.com</a>",'bot');
+  }
+
+  // scroll to section if needed
+  const l=text.toLowerCase();
+  if(/(contact|email|reach)/.test(l))setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),900);
+  else if(/project/.test(l))setTimeout(()=>document.getElementById('projects').scrollIntoView({behavior:'smooth'}),900);
+}
+
+// Init AI section
+(()=>{
+  const d=document.createElement('div');
+  d.className='ai-msg msg-bot';
+  d.innerHTML=`Hi! I'm Sarthak's assistant. What would you like to know?<div class="chips">
+    <span class="chip" onclick="send('Who is Sarthak?')">Who is Sarthak?</span>
+    <span class="chip" onclick="send('What are his skills?')">Skills</span>
+    <span class="chip" onclick="send('Tell me about his projects')">Projects</span>
+    <span class="chip" onclick="send('How to contact him?')">Contact</span>
+    <span class="chip" onclick="send('What certificates does he have?')">Certificates</span>
+    <span class="chip" onclick="send('Is he open to internships?')">Internships?</span>
+  </div>`;
+  document.getElementById('ai-body').appendChild(d);
+  document.getElementById('ai-btn').addEventListener('click',()=>send(document.getElementById('ai-in').value));
+  document.getElementById('ai-in').addEventListener('keypress',e=>{if(e.key==='Enter')send(e.target.value);});
+})();
+
+// Footer clock
+const clkEl = document.getElementById('fclock');
+function tick() {
+  const n = new Date();
+  clkEl.textContent = `© ${n.getFullYear()} Sarthak Jain  ·  ${n.toLocaleDateString('en-IN', {year:'numeric',month:'long',day:'numeric'})}  ·  ${n.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true})}`;
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
